@@ -1,0 +1,43 @@
+程式小片段
+==========
+
+讓馬達動起來吧！
+----------------
+
+.. note::
+    這邊用Kraken跟NEO的程式來舉例
+
+.. important::
+    因為省略掉import的部分，所以直接複製貼上動不了是正常的
+
+.. code-block:: java
+    :caption: Defintion
+
+    public SparkMax neo = new SparkMax(10, MotorType.kBrushless);
+    public TalonFX kraken = new TalonFX(11, new CANBus()); //new CANBus會指到RIO的bus
+
+.. attention::
+    這邊沒做configuration, 關於configuration之後會再做一篇文章做詳細說明（老高
+
+最簡單讓他動起來的方式
+
+.. code-block:: java
+    :caption: SimpleRun
+
+    neo.set(1);
+    kraken.set(1);
+
+這個方式是讓馬達用開還控制的方式到指定的轉速(趴數，0~1)
+
+不過Kraken更常見的是用這種方式
+
+.. code-block:: java
+    :caption: KrakenRun
+
+    public DutyCycleOut request = new DutyCycleOut();
+
+    //---------- (已省略)
+
+    motor.setControl(request.withOutput(1));
+
+這邊會這樣寫別有原因，之後就會懂了
